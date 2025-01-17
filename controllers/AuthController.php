@@ -24,14 +24,17 @@ class AuthController extends Controller
 
         $user = User::findOne(['email' => $email]);
 
-        if ($user && Yii::$app->getSecurity()->validatePassword($password, $user->password)) {
-            return [
-                'message' => 'Logged in successfully.',
-                'token' => $user->generateToken(),
-            ];
+        $passwordWasValidated = $user && Yii::$app->getSecurity()
+            ->validatePassword($password, $user->password);
+
+        if (! $user || ! $passwordWasValidated) {
+            Yii::$app->response->setStatusCode(401);
+            return ['message' => 'Invalid email or password.'];
         }
 
-        Yii::$app->response->setStatusCode(401);
-        return ['message' => 'Invalid email or password.'];
+        return [
+            'message' => 'Logged in successfully.',
+            'token' => $user->generateToken(),
+        ];
     }
 }
