@@ -1,0 +1,3 @@
+CREATE DATABASE testing;
+GRANT ALL PRIVILEGES ON testing.* TO 'root'@'%';
+FLUSH PRIVILEGES;

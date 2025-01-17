@@ -1,0 +1,12 @@
+actor: ApiTester
+step_decorators:
+    - \Codeception\Step\AsJson
+modules:
+    enabled:
+        - REST:
+            depends: PhpBrowser
+            url: http://localhost/
+    config:
+        - Yii2:
+            transaction: true
+            cleanup: true

@@ -1,0 +1,23 @@
+services:
+  app:
+    image: yiisoftware/yii2-php:8.3-apache
+    ports:
+      - "8000:80"
+    volumes:
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      - .:/app:delegated
+
+  db:
+    image: mysql:latest
+    volumes:
+      - ./.docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysqldata:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_DATABASE: ${DB_NAME}
+
+volumes:
+  mysqldata:
