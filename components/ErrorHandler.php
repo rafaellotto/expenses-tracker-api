@@ -3,7 +3,6 @@
 namespace app\components;
 
 use Yii;
-use yii\base\UserException;
 use yii\web\Response;
 
 class ErrorHandler extends \yii\web\ErrorHandler

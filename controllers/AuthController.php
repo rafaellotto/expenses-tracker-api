@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\models\User;
-use app\components\JwtService;
 use Yii;
 use yii\rest\Controller;
 
@@ -28,7 +27,7 @@ class AuthController extends Controller
         if ($user && Yii::$app->getSecurity()->validatePassword($password, $user->password)) {
             return [
                 'message' => 'Logged in successfully.',
-                'token' => JwtService::generateToken($user->id),
+                'token' => $user->generateToken(),
             ];
         }
 

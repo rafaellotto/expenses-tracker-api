@@ -2,9 +2,8 @@
 
 ## Installation
 
-1. Copy `.env.example` to `.env` and update the database values
-2. Generate a key for JWT using `php yii key/generate`
-2. Run `docker compose up -d`
+1. Copy `.env.example` to `.env`
+2. Run `./docker/scripts/setup`
 
 ## Documentation
 [API documentation](API.md)
@@ -15,5 +14,4 @@
 
 ## Testing
 
-- For the first time, run `./tests/bin/yii migrate`
-- Run `./vendor/bin/codecept run` to execute all tests
+- Run `./docker/scripts/codecept run` to execute all tests

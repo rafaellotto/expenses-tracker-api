@@ -39,6 +39,7 @@ $config = [
         ],
         'request' => [
             'cookieValidationKey' => '9mEISipw6BY5gnL8fKQ3K-5nTU4cVOI0',
+            'enableCsrfValidation' => false,
             'parsers' => [
                 'application/json' => \yii\web\JsonParser::class,
             ],

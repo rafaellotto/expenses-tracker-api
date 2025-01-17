@@ -90,6 +90,22 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         //
     }
 
+    public function generateToken(): string
+    {
+        $now = new \DateTimeImmutable('now', new \DateTimeZone(\Yii::$app->timeZone));
+        $token = \Yii::$app->jwt->getBuilder()
+            ->issuedAt($now)
+            ->canOnlyBeUsedAfter($now)
+            ->expiresAt($now->modify('+1 hour'))
+            ->withClaim('uid', $this->id)
+            ->getToken(
+                \Yii::$app->jwt->getConfiguration()->signer(),
+                \Yii::$app->jwt->getConfiguration()->signingKey()
+            );
+
+        return $token->toString();
+    }
+
     public static function register(array $post): self
     {
         $user = new self;
