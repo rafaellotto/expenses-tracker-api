@@ -9,6 +9,14 @@
 actor: FunctionalTester
 modules:
     enabled:
-      - Filesystem
-      - Yii2
-      - Asserts
+        - Filesystem
+        - Yii2:
+            configFile: 'config/test.php'
+            part: [orm, fixtures]
+            transaction: true
+            cleanup: true
+            entryScript: index-test.php
+        - Asserts
+        - REST:
+            depends: PhpBrowser
+            url: http://localhost
