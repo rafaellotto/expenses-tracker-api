@@ -1,21 +1,25 @@
 <?php
 
+namespace tests\api;
 
-namespace Functional;
-
+use ApiTester;
 use app\models\User;
-use \FunctionalTester;
 
 class AuthCest
 {
-    public string $email = 'email@example.com';
+    public string $email;
     public string $password = 'password';
 
-    public function registrationWithoutPassword(FunctionalTester $I): void
+    public function _before(): void
+    {
+        $this->email = time().'@example.com';
+    }
+
+    public function registrationWithoutPassword(ApiTester $I): void
     {
         $I->wantTo('Try to register without password');
 
-        $I->sendPost('/auth/register', [
+        $I->sendPostAsJson('/auth/register', [
             'email' => $this->email,
         ]);
 
@@ -29,11 +33,11 @@ class AuthCest
         ]);
     }
 
-    public function registrationWithoutEmail(FunctionalTester $I): void
+    public function registrationWithoutEmail(ApiTester $I): void
     {
         $I->wantTo('Try to register without email');
 
-        $I->sendPost('/auth/register', [
+        $I->sendPostAsJson('/auth/register', [
             'password' => $this->password,
         ]);
 
@@ -47,11 +51,11 @@ class AuthCest
         ]);
     }
 
-    public function registrationWithIncorrectEmail(FunctionalTester $I): void
+    public function registrationWithIncorrectEmail(ApiTester $I): void
     {
         $I->wantTo('Try to register with incorrect email');
 
-        $I->sendPost('/auth/register', [
+        $I->sendPostAsJson('/auth/register', [
             'email' => 'email',
             'password' => $this->password,
         ]);
@@ -66,11 +70,11 @@ class AuthCest
         ]);
     }
 
-    public function registrationWithSmallPassword(FunctionalTester $I): void
+    public function registrationWithSmallPassword(ApiTester $I): void
     {
         $I->wantTo('Try to register with small password');
 
-        $I->sendPost('/auth/register', [
+        $I->sendPostAsJson('/auth/register', [
             'email' => $this->email,
             'password' => '123',
         ]);
@@ -85,11 +89,11 @@ class AuthCest
         ]);
     }
 
-    public function registrationSuccessful(FunctionalTester $I): void
+    public function registrationSuccessful(ApiTester $I): void
     {
         $I->wantTo('Register successful');
 
-        $I->sendPost('/auth/register', [
+        $I->sendPostAsJson('/auth/register', [
             'email' => $this->email,
             'password' => $this->password,
         ]);
@@ -105,7 +109,7 @@ class AuthCest
         $I->dontSeeResponseContains('"password":');
     }
 
-    public function loginSuccessfully(FunctionalTester $I): void
+    public function loginSuccessfully(ApiTester $I): void
     {
         $I->wantTo('Login successfully');
 
@@ -114,7 +118,7 @@ class AuthCest
         $user->password = $this->password;
         $user->save();
 
-        $I->sendPost('/auth/login', [
+        $I->sendPostAsJson('/auth/login', [
             'email' => $this->email,
             'password' => $this->password,
         ]);
@@ -127,11 +131,11 @@ class AuthCest
         ]);
     }
 
-    public function loginError(FunctionalTester $I): void
+    public function loginError(ApiTester $I): void
     {
         $I->wantTo('Try to login with wrong password');
 
-        $I->sendPost('/auth/login', [
+        $I->sendPostAsJson('/auth/login', [
             'email' => $this->email,
             'password' => 'wrong-password',
         ]);

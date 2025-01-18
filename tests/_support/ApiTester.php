@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 
 /**
  * Inherited Methods
- * @method void wantToTest($text)
  * @method void wantTo($text)
+ * @method void wantToTest($text)
  * @method void execute($callable)
  * @method void expectTo($prediction)
  * @method void expect($prediction)
@@ -12,15 +14,15 @@
  * @method void am($role)
  * @method void lookForwardTo($achieveValue)
  * @method void comment($description)
- * @method \Codeception\Lib\Friend haveFriend($name, $actorClass = NULL)
+ * @method void pause($vars = [])
  *
  * @SuppressWarnings(PHPMD)
 */
-class UnitTester extends \Codeception\Actor
+class ApiTester extends \Codeception\Actor
 {
-    use _generated\UnitTesterActions;
+    use _generated\ApiTesterActions;
 
-   /**
-    * Define custom actions here
-    */
+    /**
+     * Define custom actions here
+     */
 }

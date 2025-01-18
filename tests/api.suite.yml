@@ -1,0 +1,7 @@
+actor: ApiTester
+step_decorators:
+    - \Codeception\Step\AsJson
+modules:
+    enabled:
+        - REST:
+            depends: Yii2
