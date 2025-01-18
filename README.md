@@ -16,7 +16,8 @@
 - The category field was designed as enum to improve performance compared to varchar, but ideally this would be a foreign key
 - All business logic is on models to keep controllers small, but with more features will have to change to another pattern (e.g. service pattern)
 
-
 ## Testing
 
 - Run `./docker/scripts/codecept run` to execute all tests
+
+![/.github/tests.png](.github/tests.png)
